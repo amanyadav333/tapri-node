@@ -1,7 +1,19 @@
 class DatabaseTable{
     static users="Users";
     static category="Category";
-    static products="Products";
+    static products="FoodProducts";
+    static cart="Cart";
+}
+
+class CartTable{
+    static id="id";
+    static foodProductId="food_product_id";
+    static created="created_at";
+    static spiceness="spiceness";
+    static quantity="quantity";
+    static addSauce="add_sauce";
+    static comment="comment";
+    static userId="user_id";
 }
 
 class UserTable{
@@ -24,20 +36,14 @@ class CategoryTable{
 }
 class ProductsTable{
     static id="id";
-    static unique_id="unique_id";
     static name="name";
     static description="description";
     static price="price";
-    static quantity="quantity";
     static isActive="is_active";
-    static isProduct="is_product";
     static created="created_at";
-    static parentCategoryId="parent_category_id";
-    static childCategoryId="child_category_id";
+    static categoryId="category_id";
     static userId="user_id";
     static image="image";
-    static deliveryTime="delivery_time";
-    static productCode="product_code";
 }
 
 
@@ -45,5 +51,6 @@ module.exports = {
     user:UserTable,
     products:ProductsTable,
     category:CategoryTable,
+    cart:CartTable,
     dbTable:DatabaseTable,
 };

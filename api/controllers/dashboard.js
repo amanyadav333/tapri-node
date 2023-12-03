@@ -9,7 +9,7 @@ const getDashBoardData = async (req, res, next) => {
         let result = '';
         let data = {};
         const schema = Joi.object().keys({
-            user_id: Joi.string().required(),
+            user_id: Joi.string().allow("").required(),
         });
         const { error, value } = schema.validate({
             user_id: req.body.user_id,
@@ -22,7 +22,7 @@ const getDashBoardData = async (req, res, next) => {
             })
         }else{
             try {
-                usr_qry = `SELECT * FROM ${dbTable.category} WHERE ${category.isParentCategory}= '1'`;
+                usr_qry = `SELECT * FROM ${dbTable.category}`;
                 result = await executeQry(usr_qry);
                 if(result.length!=0){
                     data["category"]=result;
@@ -30,17 +30,7 @@ const getDashBoardData = async (req, res, next) => {
                 usr_qry = `SELECT * FROM ${dbTable.products} WHERE ${products.userId} != '${user_id}' LIMIT 5`;
                 result = await executeQry(usr_qry);
                 if(result.length!=0){
-                    data["featured_product"]=result;
-                }
-                usr_qry = `SELECT * FROM ${dbTable.products} WHERE ${products.userId} != '${user_id}' ORDER BY RAND() LIMIT 30`;
-                result = await executeQry(usr_qry);
-                if(result.length!=0){
-                    data["category_product"]=result;
-                }
-                usr_qry = `SELECT * FROM ${dbTable.products} WHERE ${products.userId} != '${user_id}' AND ${products.isProduct} = '0' LIMIT 5`;
-                result = await executeQry(usr_qry);
-                if(result.length!=0){
-                    data["featured_services"]=result;
+                    data["product"]=result;
                 }
                 res.statusCode = 200;
                 res.json({
